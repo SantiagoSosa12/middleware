@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 
 
 function sendImage(res) {
+  console.log('Peticion a: ' + servers[number]);
   var data = new FormData();
   data.append("myImage", stream);
   axios.post(servers[number], data, data.getHeaders())
