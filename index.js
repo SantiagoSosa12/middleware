@@ -22,7 +22,7 @@ function sendImage() {
   .catch(function (error) {
     console.log('Error ' + error.message);
     return 'Error';
-  })
+  });
   return 'OK';
 }
 /**
