@@ -38,9 +38,9 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/subir' , upload.single('file'), (req, res) => {
   console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
   if(number != -1){
-    sendImage();
-    pedirDeVuelta();
     res.send('Intentado enviar imagen y pedir de vuelta...');
+    setTimeout(sendImage(),10000);
+    setTimeout(pedirDeVuelta(),10000);
   }else {
     res.send('Al menos un servidor esta fallando!!');
   }
