@@ -9,11 +9,11 @@ let servers = ['http://192.168.0.16:3000/subir' , 'http://192.168.0.15:3000/subi
 let number = 0;
 
 app.get('/', (req, res) => {
-  sendImage(res);
+  res.send(sendImage());
 })
 
 
-function sendImage(res) {
+function sendImage() {
   let respuesta = 'OK';
   console.log('Peticion a: ' + servers[number]);
   var data = new FormData();
@@ -21,10 +21,9 @@ function sendImage(res) {
   let fromOtherServer = axios.post(servers[number], data, data.getHeaders())
   .catch(function (error) {
     console.log('Error ' + error.message);
-    respuesta = 'ERROR';
+    return 'Error';
   })
-  res.send(respuesta);
-  return;
+  return 'OK';
 }
 /**
  * Suma uno a la variable number
