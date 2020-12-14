@@ -5,7 +5,7 @@ const FormData = require('form-data');
 const fs = require('fs');
 const axios = require('axios');
 const stream = fs.createReadStream('./archivos/imagenPrueba.png');
-let servers = ['http://192.168.0.16:3000/subir' , 'http://192.168.0.15:3000/subir']
+let servers = ['http://192.168.0.15:3000/subir' , 'http://192.168.0.16:3000/subir']
 let number = 0;
 
 app.get('/', (req, res) => {
@@ -21,6 +21,7 @@ function sendImage() {
   .catch(function (error) {
     console.log('Error ' + error.message);
   });
+  sum();
   return fromOtherServer;
 }
 /**
