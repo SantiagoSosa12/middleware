@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 function sendImage(res) {
   var data = new FormData();
   data.append("myImage", stream);
-  axios.post('http://192.168.0.13:3000/subir', data, data.getHeaders())
+  axios.post('http://192.168.0.16:3000/subir', data, data.getHeaders())
   .catch(function (error) {
     console.log('Error ' + error.message)
     res.send('Error')
