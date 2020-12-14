@@ -8,6 +8,9 @@ const stream = fs.createReadStream('./archivos/imagenPrueba.png');
 let servers = ['http://192.168.0.15:3000/' , 'http://192.168.0.16:3000/']
 let number = 0;
 
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 var imagenPrueba = 'imagenPrueba.png';
 const path = require('path');
 const multer = require('multer');
@@ -31,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
  * Subida de una imagen puede ser de otro servidor o desde un cliente
  */
 app.post('/subir' , upload.single('file'), (req, res) => {
-  //Console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
+  Console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
   return res.send(req.file);
 })
 
