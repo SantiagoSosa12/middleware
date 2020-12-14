@@ -28,6 +28,7 @@ function sendImage(res) {
     respuesta = 'OK';
   }
   res.send(respuesta);
+  return;
 }
 /**
  * Suma uno a la variable number
