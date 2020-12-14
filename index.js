@@ -10,6 +10,7 @@ let number = 0;
 
 app.get('/', (req, res) => {
   res.send(sendImage());
+  res.end();
 })
 
 
