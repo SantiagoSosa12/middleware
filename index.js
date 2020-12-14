@@ -8,6 +8,7 @@ const stream = fs.createReadStream('./archivos/imagenPrueba.png');
 let servers = ['http://192.168.0.15:3000/' , 'http://192.168.0.16:3000/']
 let number = 0;
 
+var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
@@ -32,14 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 
 /**
  * Subida de una imagen puede ser de otro servidor o desde un cliente
+ * Se envia y luego se pide de vuelta
  */
 app.post('/subir' , upload.single('file'), (req, res) => {
-  Console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
-  return res.send(req.file);
-})
-
-
-app.get('/', (req, res) => {
+  console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
   if(number != -1){
     sendImage();
     pedirDeVuelta();
@@ -47,6 +44,7 @@ app.get('/', (req, res) => {
   }else {
     res.send('Al menos un servidor esta fallando!!');
   }
+  return res.send(req.file);
 })
 
 
