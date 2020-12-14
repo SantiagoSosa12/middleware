@@ -22,6 +22,7 @@ function sendImage() {
   } catch (error) {
     console.log(error);
     return 'ERROR';
+    break;
   }
   sum();
   return 'OK';
