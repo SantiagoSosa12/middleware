@@ -19,13 +19,12 @@ function sendImage() {
   data.append("myImage", stream);
   try {
     fromOtherServer = axios.post(servers[number], data, data.getHeaders());
+    sum();
+    return 'OK';
   } catch (error) {
     console.log(error);
     return 'ERROR';
-    break;
   }
-  sum();
-  return 'OK';
 }
 /**
  * Suma uno a la variable number
