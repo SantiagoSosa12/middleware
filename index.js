@@ -14,17 +14,16 @@ app.get('/', (req, res) => {
 
 
 function sendImage() {
-  let respuesta = 'OK';
+  let respuesta = 'ERROR';
   console.log('Peticion a: ' + servers[number]);
   var data = new FormData();
   data.append("myImage", stream);
-  try {
-    fromOtherServer = axios.post(servers[number], data, data.getHeaders());
-    sum();
-  } catch (error) {
-    console.log(error);
-    respuesta = 'Error';
-  }
+  fromOtherServer = axios.post(servers[number], data, data.getHeaders())
+  .then(function (response) {
+    console.log(response);
+    respuesta = 'OK';
+  });
+  sum();
   return respuesta;
 }
 /**
