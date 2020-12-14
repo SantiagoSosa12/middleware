@@ -21,6 +21,7 @@ function sendImage(res) {
   let fromOtherServer = axios.post(servers[number], data, data.getHeaders())
   .catch(function (error) {
     console.log('Error ' + error.message)
+    console.log(fromOtherServer + ' <-- del servidor');
   })
   sum();
   if(fromOtherServer != null){
