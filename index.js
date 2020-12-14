@@ -7,7 +7,7 @@ const axios = require('axios');
 const stream = fs.createReadStream('./archivos/imagenPrueba.png');
 
 
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
   sendImage(res);
 })
 
