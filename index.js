@@ -47,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
  * Subida de una imagen puede ser de otro servidor o desde un cliente
  * Se envia y luego se pide de vuelta
  */
-app.post('/subir' , upload.single('file'), (req, res) => {
+app.post('/subir' , upload.single('imagen'), (req, res) => {
   console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
   if(number != -1){
     res.send('Intentado enviar imagen y pedir de vuelta...');
