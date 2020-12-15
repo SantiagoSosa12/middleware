@@ -7,6 +7,9 @@ const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
 
+const readLine = require("readline")
+NOMBRE_ARCHIVO = "/home/serverone/serverStatus/logger.txt";
+
 var router = express.Router();
 router.use('/index.pug',express.static('./views'));
 app.use('/',router);
@@ -90,8 +93,8 @@ function sum(){
 
 async function sendEmail(){
   let testAccount = await nodemailer.createTestAccount();
-
-  // create reusable transporter object using the default SMTP transport
+  var stateServer = lastLine();
+  
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -105,8 +108,8 @@ async function sendEmail(){
     from: '"From Middleware 👻" <middleware@gmail.com>', 
     to: "sosa122009@gmail.com", 
     subject: "Fail", 
-    text: "Un servidor esta fallando", 
-    html: "<b>Por favor revise el estado de sus servidores</b>", 
+    text: 'Al menos un servidor fallo: ' + stateServer, 
+    html: "<b>reinice servidor!! </b>", 
   });
 }
 
@@ -121,6 +124,17 @@ app.get('/descargar', (req, res) => {
     }
   });
 })
+
+function lastLine(){
+  let result = []
+  let lector = readLine.createInterface({
+    input: fs.createReadStream(NOMBRE_ARCHIVO)
+  });
+  lector.on("line", linea => {
+    result.push(''+linea);
+  });
+  return result[result.length - 1];
+}
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
