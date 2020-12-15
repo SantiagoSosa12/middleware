@@ -116,6 +116,10 @@ async function sendEmail(){
 app.get('/', (req, res) => {
   res.render('index');
 })
+ 
+app.get('/state', (req, res) => {
+  res.send(stateServer());
+})
 
 app.get('/descargar', (req, res) => {
   res.download(__dirname+'/archivos/imagenPrueba.png' , function(err){
