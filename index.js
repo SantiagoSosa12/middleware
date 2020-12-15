@@ -118,7 +118,7 @@ app.get('/', (req, res) => {
 })
  
 app.get('/state', (req, res) => {
-  res.send(stateServer());
+  res.send(lastLine());
 })
 
 app.get('/descargar', (req, res) => {
@@ -135,7 +135,8 @@ function lastLine(){
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
   lector.on("line", linea => {
-    result.push(""+linea);
+    console.log("linea: ",linea);
+    result.push("->"+linea);
   });
   return result[result.length - 1];
 }
