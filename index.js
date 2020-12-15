@@ -7,7 +7,7 @@ const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
 
-let servers = ['http://192.168.0.13:3000/' , 'http://192.168.0.16:3000/']
+let servers = ['http://192.168.0.15:3000/' , 'http://192.168.0.16:3000/']
 let number = 0;
 
 var bodyParser = require('body-parser');
@@ -54,6 +54,10 @@ app.post('/subir' , upload.single('file'), (req, res) => {
     sendEmail();
     res.send('Al menos un servidor esta fallando!! Se enviara un correo a sosa122009@gmail.com');
   }
+})
+
+app.post('/subir2' , upload.single('file'), (req, res) => {
+  console.log(`Subiendo imagen.. sin reenvio!! ${req.hostname}/${req.file.path}`);
 })
 
 function sendImage() {
