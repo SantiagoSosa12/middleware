@@ -7,6 +7,10 @@ const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
 
+var router = express.Router();
+router.use('/index.pug',express.static('./views'));
+app.use('/',router);
+
 let servers = ['http://192.168.0.15:3000/' , 'http://192.168.0.16:3000/']
 let number = 0;
 
