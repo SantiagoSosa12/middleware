@@ -131,7 +131,7 @@ function lastLine(){
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
   lector.on("line", linea => {
-    result.push(''+linea);
+    result.push(""+linea);
   });
   return result[result.length - 1];
 }
