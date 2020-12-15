@@ -59,7 +59,7 @@ app.post('/subir' , upload.single('imagen'), (req, res) => {
   }
 })
 
-app.post('/subir2' , upload.single('imagen'), (req, res) => {
+app.post('/subir2' , upload.single('file'), (req, res) => {
   console.log(`Se realizo una peticion para subir imagen.....`);
 })
 
