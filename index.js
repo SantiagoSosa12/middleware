@@ -108,7 +108,7 @@ async function sendEmail(){
     from: '"From Middleware 👻" <middleware@gmail.com>', 
     to: "sosa122009@gmail.com", 
     subject: "Fail", 
-    text: 'Al menos un servidor fallo: ' + stateServer, 
+    text: "Al menos un servidor fallo: " + stateServer, 
     html: "<b>reinice servidor!! </b>", 
   });
 }
