@@ -14,7 +14,7 @@ var router = express.Router();
 router.use('/index.pug',express.static('./views'));
 app.use('/',router);
 
-let servers = ['http://192.168.0.15:3000/' , 'http://192.168.0.16:3000/']
+let servers = ['192.168.0.15' , '192.168.0.16']
 let number = 0;
 
 var bodyParser = require('body-parser');
@@ -68,7 +68,7 @@ app.post('/subir2' , upload.single('file'), (req, res) => {
 
 function sendImage() {
   console.log('Peticion a: ' + servers[number] + 'subir');
-  exec("/home/serverone/carpetaGit/middleware/archivos/sendImage.sh "+servers[number] , (error, stdout, stderr) => {
+  exec("./archivos/sendImage.sh "+servers[number] , (error, stdout, stderr) => {
     if (error){
       console.log(`error :${error.message}`);
       return;
