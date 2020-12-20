@@ -68,7 +68,7 @@ app.post('/subir2' , upload.single('file'), (req, res) => {
 
 function sendImage() {
   console.log('Peticion a: ' + servers[number] + 'subir');
-  exec("./archivos/sendImage.sh "+servers[number] , (error, stdout, stderr) => {
+  exec("/home/serverone/carpetaGit/middleware/archivos/sendImage.sh "+servers[number] , (error, stdout, stderr) => {
     if (error){
       console.log(`error :${error.message}`);
       return;
