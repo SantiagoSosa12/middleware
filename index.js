@@ -2,10 +2,10 @@ const nodemailer = require("nodemailer");
 const express = require('express')
 const app = express()
 const port = 3001
-const FormData = require('form-data');
 const fs = require('fs');
-const axios = require('axios');
 const path = require('path');
+
+const { exec } = require("child_process");
 
 const readLine = require("readline")
 NOMBRE_ARCHIVO = "/home/serverone/serverStatus/logger.txt";
@@ -68,16 +68,16 @@ app.post('/subir2' , upload.single('file'), (req, res) => {
 
 function sendImage() {
   console.log('Peticion a: ' + servers[number] + 'subir');
-  var stream = fs.createReadStream('./archivos/imagenPrueba.png');
-  let data = new FormData();
-  data.append("file", stream);
-  axios.post(servers[number] + 'subir', data, data.getHeaders())
-  .then(function (response) {
-    console.log('Recibiendo respuesta del servidor: ' + servers[number] + ' Imagen enviada');
-  })
-  .catch(function(error) {
-    console.log(error);
-    number = -1;
+  exec("./archivos/sendImage.sh "+servers[number] , (errot, stdout, stderr) => {
+    if (error){
+      console.log(`error :${error.message}`);
+      return;
+    }
+    if (stderr){
+      console.log(`stderr :${stderr}`);
+      return;
+    }
+    console.log(`stdout :${stdout}`);
   });
 }
 
@@ -142,5 +142,5 @@ function lastLine(){
 }
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Example app listening at http://localhost:${port}`);
 })
