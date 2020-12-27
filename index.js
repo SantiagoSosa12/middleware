@@ -56,7 +56,7 @@ app.post('/subir' , upload.single('file'), (req, res) => {
   console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
   if(number != -1){
     res.send('Intentado enviar imagen y pedir de vuelta...');
-    setTimeout(sendImage, 10000, 'Enviada');
+    setTimeout(sendImage, 15000, 'Enviada');
     setTimeout(sum ,30000 , 'Cambio Servidor');
   }else {
     sendEmail();
