@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const stream = fs.createReadStream('./archivos/imagenPrueba.png');
 
-const { exec } = require("child_process");
+const { request } = require('http');
 
 const readLine = require("readline")
 NOMBRE_ARCHIVO = "/home/serverone/serverStatus/logger.txt";
