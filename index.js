@@ -5,7 +5,6 @@ const port = 3001
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
-const stream = fs.createReadStream('./archivos/imagenPrueba.png');
 
 const { request } = require('http');
 
@@ -75,6 +74,7 @@ app.post('/subir2' , upload.single('file'), (req, res) => {
 
 function sendImage() {
   console.log('Peticion a: ' + servers[number] + 'subir');
+  var stream = fs.createReadStream('./archivos/imagenPrueba.png');
   var data = new FormData();
   data.append('file', stream);/*Son parametros Clave Valor 
    DEBEN SER LOS MISMOS EN EL SERVIDOR DE DESTINO
