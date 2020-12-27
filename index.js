@@ -2,8 +2,10 @@ const nodemailer = require("nodemailer");
 const express = require('express')
 const app = express()
 const port = 3001
+const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
+const stream = fs.createReadStream('./archivos/imagenPrueba.png');
 
 const { exec } = require("child_process");
 
@@ -50,35 +52,45 @@ app.use(express.urlencoded({ extended: true }));
  * Subida de una imagen puede ser de otro servidor o desde un cliente
  * Se envia y luego se pide de vuelta
  */
-app.post('/subir' , upload.single('imagen'), (req, res) => {
+app.post('/subir' , upload.single('file'), (req, res) => {
   console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
   if(number != -1){
     res.send('Intentado enviar imagen y pedir de vuelta...');
-    setTimeout(sendImage, 20000, 'Enviada');
-    setTimeout(sum ,20000 , 'Cambio Servidor');
+    setTimeout(sendImage, 10000, 'Enviada');
+    setTimeout(sum ,30000 , 'Cambio Servidor');
   }else {
     sendEmail();
     res.send('Al menos un servidor esta fallando!! Se enviara un correo a sosa122009@gmail.com');
   }
 })
 
+/*
+Se utiliza cuando nos devulven la imagen que enviamos,
+Que debe venir con una frase escrita.
+*/
 app.post('/subir2' , upload.single('file'), (req, res) => {
   console.log(`Se realizo una peticion para subir imagen.....`);
+  return res.send(req.file);
 })
 
 function sendImage() {
   console.log('Peticion a: ' + servers[number] + 'subir');
-  exec("./archivos/sendImage.sh "+servers[number] , (error, stdout, stderr) => {
-    if (error){
-      console.log(`error :${error.message}`);
-      return;
-    }
-    if (stderr){
-      console.log(`stderr :${stderr}`);
-      return;
-    }
-    console.log(`stdout :${stdout}`);
+  var data = new FormData();
+  data.append('file', stream);/*Son parametros Clave Valor 
+   DEBEN SER LOS MISMOS EN EL SERVIDOR DE DESTINO
+  */
+  var req = request(
+  {
+    host: servers[number],
+    port: '3000',
+    path: '/subir',
+    method: 'POST',
+    headers: data.getHeaders(),
+  },
+    response => {
+    console.log(response.statusCode);
   });
+  data.pipe(req);
 }
 
 /**
