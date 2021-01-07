@@ -12,7 +12,14 @@ const readLine = require("readline")
 NOMBRE_ARCHIVO = "/home/serverone/serverStatus/logger.txt";
 
 var router = express.Router();
+
+var allServerON = true;
+
+
 router.use('/index.pug',express.static('./views'));
+app.use('/',router);
+
+router.use('/index2.pug',express.static('./views'));
 app.use('/',router);
 
 let servers = ['192.168.0.15' , '192.168.0.16']
@@ -26,7 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 var imagenPrueba = 'imagenPrueba.png';
@@ -53,12 +60,11 @@ app.use(express.urlencoded({ extended: true }));
  */
 app.post('/subir' , upload.single('file'), (req, res) => {
   console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
-  if(number != -1){
+  if(allServerON){
     res.send('Intentado enviar imagen y pedir de vuelta...');
     setTimeout(sendImage, 15000, 'Enviada');
     setTimeout(sum ,30000 , 'Cambio Servidor');
   }else {
-    sendEmail();
     res.send('Al menos un servidor esta fallando!! Se enviara un correo a sosa122009@gmail.com');
   }
 })
@@ -89,8 +95,12 @@ function sendImage() {
   },
     response => {
     console.log(response.statusCode);
+  }).on('error', error => {
+    console.log('Hubo un error al conectarse con: ' + servers[number] );
+    allServerON = false;
   });
   data.pipe(req);
+  
 }
 
 /**
@@ -103,10 +113,10 @@ function sum(){
   }
 }
 
-async function sendEmail(){
+async function sendEmail(toSend){
   let testAccount = await nodemailer.createTestAccount();
   var stateServer = lastLine();
-  
+  console.log('Lo que esta leyendo el programa del archivo: ' + stateServer);
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -118,15 +128,27 @@ async function sendEmail(){
   });
   await transporter.sendMail({
     from: '"From Middleware 👻" <middleware@gmail.com>', 
-    to: "sosa122009@gmail.com", 
+    to: toSend, 
     subject: "Fail", 
     text: "Al menos un servidor fallo: " + stateServer, 
     html: "<b>reinice servidor!! </b>", 
   });
 }
 
+app.get('/enviarCorreo', (req, res) => {
+  var email = req.url.split('=')[1];
+  email.replace('%40', '@');
+  console.log("Se envia correo a: " + email);
+  sendEmail(req.correo);
+});
+
+
 app.get('/', (req, res) => {
-  res.render('index');
+  if(allServerON){
+    res.render('index');
+  }else{
+    res.render('index2');
+  }
 })
  
 app.get('/state', (req, res) => {
