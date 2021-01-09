@@ -65,7 +65,7 @@ app.post('/subir' , upload.single('file'), (req, res) => {
     setTimeout(sendImage, 15000, 'Enviada');
     setTimeout(sum ,30000 , 'Cambio Servidor');
   }else {
-    res.send('Al menos un servidor esta fallando!! Se enviara un correo a sosa122009@gmail.com');
+    res.send('Al menos un servidor esta fallando!! ');
   }
 })
 
@@ -117,6 +117,7 @@ async function sendEmail(toSend){
   let testAccount = await nodemailer.createTestAccount();
   var stateServer = lastLine();
   console.log('Lo que esta leyendo el programa del archivo: ' + stateServer);
+  console.log("Se enviar correo a: " + toSend)
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -126,20 +127,22 @@ async function sendEmail(toSend){
       pass: 'mxvmnfjiydgiagbm', // generated ethereal password
     },
   });
-  await transporter.sendMail({
-    from: '"From Middleware 👻" <middleware@gmail.com>', 
-    to: toSend, 
-    subject: "Fail", 
-    text: "Al menos un servidor fallo: " + stateServer, 
-    html: "<b>reinice servidor!! </b>", 
+  let info = await transporter.sendMail({
+    from: '<Middleware>', // sender address
+    to: toSend, // list of receivers
+    subject: "Hello ✔", // Subject line
+    text: "Hello world?", // plain text body
+    html: "<b>Hello world?</b>", // html body
   });
+
+  console.log("Message sent: %s", info.messageId);
 }
 
 app.get('/enviarCorreo', (req, res) => {
-  var email = req.url.split('=')[1];
-  email.replace('%40', '@');
-  console.log("Se envia correo a: " + email);
-  sendEmail(req.correo);
+  var email = req.url.split("=")[1];
+  email = email.replace("%40", "@");
+  sendEmail(email).catch(console.error);
+  res.send('Revise su correo...');
 });
 
 
@@ -169,7 +172,6 @@ function lastLine(){
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
   lector.on("line", linea => {
-    console.log("linea: ",linea);
     result.push("->"+linea);
   });
   return result[result.length - 1];
