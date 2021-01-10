@@ -186,7 +186,7 @@ function lastLine(){
   result.forEach(function(elemento, indice, array) {
     console.log("Array: " + elemento +" " + indice);
   });
-  console.log("Result es: " + result);
+  console.log("Result es: " + result[result.length - 2]);
   return result[result.length - 1];
 }
 
