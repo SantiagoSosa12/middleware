@@ -139,10 +139,7 @@ async function sendEmail(toSend , infoToSend){
 
 function infoServers(){
   let stateServers = "";
-  lastLine().then(function(resultado) {
-    stateServers = resultado;
-    return resultado;
-  })
+  console.log("Ultima linea llamando a: STATESERVER " +  lastLine()[0]);
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
   });
@@ -178,19 +175,13 @@ app.get('/descargar', (req, res) => {
   });
 })
 
-lastLine(function (){
-    let result = [];
-    fs.readFile(NOMBRE_ARCHIVO, 'utf8', function(err, data) {
-      if (err) {
-        return console.log(err);
-      }
-      result.push(data);
-      console.log(data);
-    });
-    return result[result.length -2];
-  }
-);
 
+
+function lastLine(){
+  var array = fs.readFileSync(NOMBRE_ARCHIVO).toString().split("\n");
+  res.send(array[array.length - 2]);
+  return result;
+}
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
