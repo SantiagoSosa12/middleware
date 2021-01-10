@@ -174,14 +174,13 @@ app.get('/descargar', (req, res) => {
 })
 
 function lastLine(){
-  let result = new Array();
   let lector = readLine.createInterface({
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
+  let result = new Array();
   lector.on('line', linea => {
     console.log(linea);
     result.push(linea);
-
   });
   result.forEach(function(elemento, indice, array) {
     console.log("Array: " + elemento +" " + indice);
