@@ -180,7 +180,8 @@ function lastLine(){
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
   lector.on("line", linea => {
-    result.push("->"+linea);
+    result.push('->' + linea);
+    console.log("LINEA LEIDA: " + linea);
   });
   console.log("La ultima linea del ESTADO DE SERVIDORES: " + result[result.length - 1]);
   return result[result.length - 1];
