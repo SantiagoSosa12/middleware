@@ -138,6 +138,7 @@ async function sendEmail(toSend , infoToSend){
 }
 
 function infoServers(){
+  let stateServers = "";
   console.log("Ultima linea llamando a: STATESERVER " +  lastLine()[0]);
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
