@@ -140,7 +140,6 @@ async function sendEmail(toSend){
 function infoServers(){
   var stateServers = lastLine() + "\n";
   servers.forEach(function(elemento, indice, array) {
-    console.log(elemento, indice);
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
   });
   console.log('Lo que esta leyendo el programa del archivo: ' + stateServers);
@@ -176,14 +175,17 @@ app.get('/descargar', (req, res) => {
 })
 
 function lastLine(){
-  let result = []
+  let result = new Array();
   let lector = readLine.createInterface({
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
   lector.on("line", linea => {
     result.push(linea);
   });
-  console.log("La ultima linea del ESTADO DE SERVIDORES: " + result[0]);
+  result.forEach(function(elemento, indice, array) {
+    console.log("Array: " + elemento +" " + indice);
+  });
+  console.log("Result es: " + result);
   return result[result.length - 1];
 }
 
