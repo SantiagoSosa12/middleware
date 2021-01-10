@@ -129,9 +129,9 @@ async function sendEmail(toSend , infoToSend){
   let info = await transporter.sendMail({
     from: '<Middleware>', // sender address
     to: toSend, // list of receivers
-    subject: "Hello ✔", // Subject line
+    subject: "Fail Servers", // Subject line
     text: infoToSend, // plain text body
-    html: "<b>Hello world?</b>", // html body
+    html: "<b>Este mensaje se envia automaticamente, por favor no responder al mismo.</b>", // html body
   });
 
   console.log("Message sent: %s", info.messageId);
