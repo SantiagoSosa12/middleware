@@ -175,24 +175,19 @@ app.get('/descargar', (req, res) => {
 })
 
 function lastLine(){
-  let result = new Array();
-  let lector = readLine.createInterface({
-    input: fs.createReadStream(NOMBRE_ARCHIVO),
-    output: process.stdout,
-    terminal: false
-  }).then(() => {
-    lector.on('line', linea => {
-      console.log(linea);
-      result.push(linea);
-    });
-  })
-  .catch(() => {
-    console.log('Haz aquello');
+  let result = [];
+  fs.readFile(NOMBRE_ARCHIVO, 'utf8', function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    result.push(data);
+    console.log(data);
   });
   result.forEach(function(elemento, indice, array) {
     console.log("Array: " + elemento +" " + indice);
   });
   console.log("Result es: " + result);
+  return result[result.length - 1];
 }
 
 app.listen(port, () => {
