@@ -183,7 +183,7 @@ async function lastLine(){
     result.push('->' + linea);
     console.log("LINEA LEIDA: " + linea);
   });
-  console.log("La ultima linea del ESTADO DE SERVIDORES: " + result[result.length - 1]);
+  console.log("La ultima linea del ESTADO DE SERVIDORES: " + result[result.length]);
   return result[result.length - 1];
 }
 
