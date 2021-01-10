@@ -139,13 +139,6 @@ async function sendEmail(toSend , infoToSend){
 
 function infoServers(){
   var stateServers = lastLine() + "\n";
-  function exitoCallback(resultado) {
-    console.log("Se leyo el archivo correctamente " + resultado);
-  }
-  function falloCallback(error) {
-    console.log("Error generando al leer el archivo " + error);
-  }  
-  var stateServers = lastLine().then(exitoCallback, falloCallback);
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
   });
@@ -182,15 +175,19 @@ app.get('/descargar', (req, res) => {
 })
 
 function lastLine(){
+  let result = new Array();
   let lector = readLine.createInterface({
     input: fs.createReadStream(NOMBRE_ARCHIVO),
     output: process.stdout,
     terminal: false
-  });
-  let result = new Array();
-  lector.on('line', linea => {
-    console.log(linea);
-    result.push(linea);
+  }).then(() => {
+    lector.on('line', linea => {
+      console.log(linea);
+      result.push(linea);
+    });
+  })
+  .catch(() => {
+    console.log('Haz aquello');
   });
   result.forEach(function(elemento, indice, array) {
     console.log("Array: " + elemento +" " + indice);
