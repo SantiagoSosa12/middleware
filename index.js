@@ -138,8 +138,8 @@ async function sendEmail(toSend , infoToSend){
 }
 
 function infoServers(){
-  let stateServers = "";
-  console.log("Ultima linea llamando a: STATESERVER " +  lastLine()[0]);
+  let stateServers = lastLine();
+  console.log("Ultima linea llamando a: STATESERVER " +  stateServers);
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
   });
@@ -150,7 +150,7 @@ app.get('/enviarCorreo', (req, res) => {
   var info = infoServers();
   var email = req.url.split("=")[1];
   email = email.replace("%40", "@");
-  //sendEmail(email , info).catch(console.error);
+  sendEmail(email , info).catch(console.error);
   res.send('Revise su correo...');
 });
 
