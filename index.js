@@ -113,8 +113,7 @@ function sum(){
   }
 }
 
-async function sendEmail(toSend){
-  var inFoServers = infoServers();
+async function sendEmail(toSend , infoToSend){
   let testAccount = await nodemailer.createTestAccount();
   console.log("Se enviar correo a: " + toSend)
   let transporter = nodemailer.createTransport({
@@ -130,7 +129,7 @@ async function sendEmail(toSend){
     from: '<Middleware>', // sender address
     to: toSend, // list of receivers
     subject: "Hello ✔", // Subject line
-    text: inFoServers, // plain text body
+    text: infoToSend, // plain text body
     html: "<b>Hello world?</b>", // html body
   });
 
@@ -142,14 +141,14 @@ function infoServers(){
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
   });
-  console.log('Lo que esta leyendo el programa del archivo: ' + stateServers);
   return stateServers;
 }
 
 app.get('/enviarCorreo', (req, res) => {
+  var info = infoServers();
   var email = req.url.split("=")[1];
   email = email.replace("%40", "@");
-  sendEmail(email).catch(console.error);
+  sendEmail(email , info).catch(console.error);
   res.send('Revise su correo...');
 });
 
