@@ -179,8 +179,7 @@ app.get('/descargar', (req, res) => {
 
 function lastLine(){
   var array = fs.readFileSync(NOMBRE_ARCHIVO).toString().split("\n");
-  res.send(array[array.length - 2]);
-  return result;
+  return array[array.length - 2];
 }
 
 app.listen(port, () => {
