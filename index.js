@@ -130,8 +130,7 @@ async function sendEmail(toSend , infoToSend){
     from: '<Middleware>', // sender address
     to: toSend, // list of receivers
     subject: "Fail Servers", // Subject line
-    text: infoToSend, // plain text body
-    html: "<b>Este mensaje se envia automaticamente, por favor no responder al mismo.</b>", // html body
+    text: infoToSend
   });
 
   console.log("Message sent: %s", info.messageId);
