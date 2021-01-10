@@ -116,7 +116,8 @@ function sum(){
 
 async function sendEmail(toSend , infoToSend){
   let testAccount = await nodemailer.createTestAccount();
-  console.log("Se enviar correo a: " + toSend)
+  console.log("Se envia correo a: " + toSend);
+  console.log("La informacion enviada por correo es: " + infoToSend);
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
