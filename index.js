@@ -179,8 +179,10 @@ function lastLine(){
   let lector = readLine.createInterface({
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
-  lector.on("line", linea => {
+  lector.on('line', linea => {
+    console.log(linea);
     result.push(linea);
+
   });
   result.forEach(function(elemento, indice, array) {
     console.log("Array: " + elemento +" " + indice);
