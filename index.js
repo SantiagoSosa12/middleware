@@ -138,7 +138,7 @@ async function sendEmail(toSend , infoToSend){
 }
 
 function infoServers(){
-  var stateServers = lastLine() + "\n";
+  console.log("Ultima linea llamando a: STATESERVER " +  lastLine()[0]);
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
   });
@@ -183,11 +183,7 @@ function lastLine(){
     result.push(data);
     console.log(data);
   });
-  result.forEach(function(elemento, indice, array) {
-    console.log("Array: " + elemento +" " + indice);
-  });
-  console.log("Result es: " + result[result.length - 2]);
-  return result[result.length - 1];
+  return result;
 }
 
 app.listen(port, () => {
