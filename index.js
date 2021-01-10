@@ -174,7 +174,7 @@ app.get('/descargar', (req, res) => {
   });
 })
 
-function lastLine(){
+async function lastLine(){
   let result = []
   let lector = readLine.createInterface({
     input: fs.createReadStream(NOMBRE_ARCHIVO)
