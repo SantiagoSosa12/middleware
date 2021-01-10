@@ -175,7 +175,9 @@ app.get('/descargar', (req, res) => {
 
 function lastLine(){
   let lector = readLine.createInterface({
-    input: fs.createReadStream(NOMBRE_ARCHIVO)
+    input: fs.createReadStream(NOMBRE_ARCHIVO),
+    output: process.stdout,
+    terminal: false
   });
   let result = new Array();
   lector.on('line', linea => {
