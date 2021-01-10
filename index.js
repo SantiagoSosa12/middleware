@@ -115,8 +115,6 @@ function sum(){
 
 async function sendEmail(toSend){
   let testAccount = await nodemailer.createTestAccount();
-  var stateServer = lastLine();
-  console.log('Lo que esta leyendo el programa del archivo: ' + stateServer);
   console.log("Se enviar correo a: " + toSend)
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -131,11 +129,21 @@ async function sendEmail(toSend){
     from: '<Middleware>', // sender address
     to: toSend, // list of receivers
     subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
+    text: infoServers(), // plain text body
     html: "<b>Hello world?</b>", // html body
   });
 
   console.log("Message sent: %s", info.messageId);
+}
+
+function infoServers(){
+  var stateServers = lastLine() + "\n";
+  servers.forEach(function(elemento, indice, array) {
+    console.log(elemento, indice);
+    stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
+  });
+  console.log('Lo que esta leyendo el programa del archivo: ' + stateServers);
+  return stateServers;
 }
 
 app.get('/enviarCorreo', (req, res) => {
