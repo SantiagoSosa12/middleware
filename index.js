@@ -114,6 +114,7 @@ function sum(){
 }
 
 async function sendEmail(toSend){
+  var inFoServers = infoServers();
   let testAccount = await nodemailer.createTestAccount();
   console.log("Se enviar correo a: " + toSend)
   let transporter = nodemailer.createTransport({
@@ -129,7 +130,7 @@ async function sendEmail(toSend){
     from: '<Middleware>', // sender address
     to: toSend, // list of receivers
     subject: "Hello ✔", // Subject line
-    text: infoServers(), // plain text body
+    text: inFoServers, // plain text body
     html: "<b>Hello world?</b>", // html body
   });
 
@@ -174,16 +175,15 @@ app.get('/descargar', (req, res) => {
   });
 })
 
-async function lastLine(){
+function lastLine(){
   let result = []
   let lector = readLine.createInterface({
     input: fs.createReadStream(NOMBRE_ARCHIVO)
   });
   lector.on("line", linea => {
-    result.push('->' + linea);
-    console.log("LINEA LEIDA: " + linea);
+    result.push(linea);
   });
-  console.log("La ultima linea del ESTADO DE SERVIDORES: " + result[result.length]);
+  console.log("La ultima linea del ESTADO DE SERVIDORES: " + result[0]);
   return result[result.length - 1];
 }
 
