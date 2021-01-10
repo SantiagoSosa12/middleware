@@ -148,7 +148,7 @@ app.get('/enviarCorreo', (req, res) => {
   var info = infoServers();
   var email = req.url.split("=")[1];
   email = email.replace("%40", "@");
-  sendEmail(email , info).catch(console.error);
+  //sendEmail(email , info).catch(console.error);
   res.send('Revise su correo...');
 });
 
