@@ -15,6 +15,7 @@ var router = express.Router();
 
 var allServerON = true;
 
+var ultimaLineaArchivo;
 
 router.use('/index.pug',express.static('./views'));
 app.use('/',router);
@@ -138,6 +139,13 @@ async function sendEmail(toSend , infoToSend){
 
 function infoServers(){
   var stateServers = lastLine() + "\n";
+  function exitoCallback(resultado) {
+    console.log("Se leyo el archivo correctamente " + resultado);
+  }
+  function falloCallback(error) {
+    console.log("Error generando al leer el archivo " + error);
+  }  
+  var stateServers = lastLine().then(exitoCallback, falloCallback);
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
   });
@@ -188,7 +196,6 @@ function lastLine(){
     console.log("Array: " + elemento +" " + indice);
   });
   console.log("Result es: " + result);
-  return result[result.length - 1];
 }
 
 app.listen(port, () => {
