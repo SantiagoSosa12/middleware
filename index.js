@@ -138,7 +138,6 @@ async function sendEmail(toSend){
 
 function infoServers(){
   var stateServers = lastLine() + "\n";
-  console.log("Lo que devuleve el metodo lastLine es: " + lastLine());
   servers.forEach(function(elemento, indice, array) {
     console.log(elemento, indice);
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
@@ -183,6 +182,7 @@ function lastLine(){
   lector.on("line", linea => {
     result.push("->"+linea);
   });
+  console.log("La ultima linea del ESTADO DE SERVIDORES: " + result[result.length - 1]);
   return result[result.length - 1];
 }
 
