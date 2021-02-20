@@ -17,11 +17,7 @@ var allServerON = true;
 
 var ultimaLineaArchivo;
 
-router.use('/index.pug',express.static('./views'));
-app.use('/',router);
 
-router.use('/index2.pug',express.static('./views'));
-app.use('/',router);
 
 let servers = ['192.168.0.15' , '192.168.0.16']
 let number = 0;
@@ -30,12 +26,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 var imagenPrueba = 'imagenPrueba.png';
 const multer = require('multer');
@@ -147,20 +141,20 @@ function infoServers(){
 }
 
 app.get('/enviarCorreo', (req, res) => {
-  var info = infoServers();
-  var email = req.url.split("=")[1];
-  email = email.replace("%40", "@");
-  sendEmail(email , info).catch(console.error);
-  res.send('Revise su correo...');
+  if( ! allServerON){
+    var info = infoServers();
+    var email = req.url.split("=")[1];
+    email = email.replace("%40", "@");
+    sendEmail(email , info).catch(console.error);
+    res.send('Alerta enviada');
+  }else {
+    res.send('Parece que los servidores estan funcionando ALERTA NO ENVIADA...');
+  }
 });
 
 
 app.get('/', (req, res) => {
-  if(allServerON){
-    res.render('index');
-  }else{
-    res.render('index2');
-  }
+  
 })
  
 app.get('/state', (req, res) => {
