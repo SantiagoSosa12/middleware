@@ -9,7 +9,8 @@ const path = require('path');
 const { request } = require('http');
 
 const readLine = require("readline")
-NOMBRE_ARCHIVO = "/home/serverone/serverStatus/logger.txt";
+const estadoServidores = require("./views/larchivos/readFile.js")
+
 
 var router = express.Router();
 
@@ -23,8 +24,7 @@ let servers = ['192.168.0.18' , '192.168.0.15']
 let number = 0;
 
 var bodyParser = require('body-parser');
-/*app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));*/
+
 
 
 app.use(express.json());
@@ -131,18 +131,10 @@ async function sendEmail(toSend , infoToSend){
   console.log("Message sent: %s", info.messageId);
 }
 
-function infoServers(){
-  let stateServers = lastLine();
-  console.log("Ultima linea llamando a: STATESERVER " +  stateServers);
-  servers.forEach(function(elemento, indice, array) {
-    stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
-  });
-  return stateServers;
-}
 
 app.get('/enviarCorreo', (req, res) => {
   if( ! allServerON){
-    var info = infoServers();
+    var info = estadoServidores.infoServers();
     var email = req.url.split("=")[1];
     email = email.replace("%40", "@");
     sendEmail(email , info).catch(console.error);
@@ -168,13 +160,6 @@ app.get('/descargar', (req, res) => {
     }
   });
 })
-
-
-
-function lastLine(){
-  var array = fs.readFileSync(NOMBRE_ARCHIVO).toString().split("\n");
-  return array[array.length - 2];
-}
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

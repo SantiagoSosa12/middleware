@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Estado de servidore</title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        const estadoServidores = require("../larchivos/readFile.js"),
+        var objetivo = document.getElementById('texto_nav1').innerHTML;
+        objetivo.innerHTML = estadoServidores.infoServers();
+        console.log(estadoServidores.infoServers());
+    </script>
+</head>
+    <body> 
+        <h1>Estado servidores</h1>
+        <p>Si alguno de los dos servidores no funciona informe mediante correo electronico en /index2.html</p>
+        <label id="texto_nav1"></label>
+    </body> 
+</html>
