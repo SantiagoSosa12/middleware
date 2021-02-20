@@ -4,7 +4,7 @@
 	<title>Estado de servidore</title>
     <meta charset="utf-8">
     <script>
-        const estadoServidores = require("../larchivos/readFile.js"),
+        const estadoServidores = require("../larchivos/readFile.js");
         var objetivo = document.getElementById('texto_nav1').innerHTML;
         objetivo.innerHTML = estadoServidores.infoServers();
         console.log(estadoServidores.infoServers());
