@@ -19,7 +19,7 @@ var ultimaLineaArchivo;
 
 
 
-let servers = ['192.168.0.15' , '192.168.0.16']
+let servers = ['192.168.0.18' , '192.168.0.15']
 let number = 0;
 
 var bodyParser = require('body-parser');
