@@ -6,7 +6,6 @@
     <script>
         function myFunction() {
             fetch('http://192.168.0.16:3001/stateServers')
-            .then(response => response.json())
             .then(data => console.log(data));
           document.getElementById("demo").innerHTML = "Paragraph changed.";
         }
