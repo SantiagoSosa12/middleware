@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <script>
         function myFunction() {
-            fetch('http://localhost/stateServer')
+            fetch('http://192.168.0.16/stateServer')
             .then(response => response.json())
             .then(data => console.log(data));
           document.getElementById("demo").innerHTML = "Paragraph changed.";
