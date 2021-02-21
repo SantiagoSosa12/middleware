@@ -11,8 +11,6 @@ const { request } = require('http');
 const readLine = require("readline")
 
 
-NOMBRE_ARCHIVO = "/home/serverone/serverStatus/logger.txt";
-
 var router = express.Router();
 
 var allServerON = true;
@@ -150,7 +148,7 @@ app.get('/', (req, res) => {
   
 })
  
-app.get('/state', (req, res) => {
+app.get('/stateServers', (req, res) => {
   res.send(lastLine());
 })
 
@@ -178,10 +176,6 @@ function infoServers(){
 }
 
 function lastLine(){
-  var array = fs.readFileSync(NOMBRE_ARCHIVO).toString().split("\n");
+  var array = fs.readFileSync("/home/serverone/serverStatus/logger.txt").toString().split("\n");
   return array[array.length - 2];
-}
-
-function mostrar(){
-  console.log('Tu y yo');
 }

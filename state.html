@@ -3,12 +3,19 @@
 <head>
 	<title>Estado de servidores</title>
     <meta charset="utf-8">
-    <script type="text/javascript" src="/index.js"> </script>
+    <script>
+        function myFunction() {
+            fetch('http://localhost/stateServer')
+            .then(response => response.json())
+            .then(data => console.log(data));
+          document.getElementById("demo").innerHTML = "Paragraph changed.";
+        }
+    </script>
 </head>
     <body> 
         <h1>Estado servidores</h1>
         <p>Si alguno de los dos servidores no funciona informe mediante correo electronico en /index2.html</p>
         <p id="demo" for="boton">Click en el boton para actualizar el estado de los servidores</p>
-        <button id="boton"type="button" onclick="infoServers()">Actualizar Estado servidores</button>
+        <button id="boton"type="button" onclick="myFunction()">Actualizar Estado servidores</button>
     </body>
 </html>
