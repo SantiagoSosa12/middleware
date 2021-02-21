@@ -9,8 +9,9 @@ const path = require('path');
 const { request } = require('http');
 
 const readLine = require("readline")
-const estadoServidores = require("./views/larchivos/readFile.js")
 
+
+NOMBRE_ARCHIVO = "/home/serverone/serverStatus/logger.txt";
 
 var router = express.Router();
 
@@ -29,7 +30,7 @@ var bodyParser = require('body-parser');
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, '/')));
 
 var imagenPrueba = 'imagenPrueba.png';
 const multer = require('multer');
@@ -134,7 +135,7 @@ async function sendEmail(toSend , infoToSend){
 
 app.get('/enviarCorreo', (req, res) => {
   if( ! allServerON){
-    var info = estadoServidores.infoServers();
+    var info = infoServers();
     var email = req.url.split("=")[1];
     email = email.replace("%40", "@");
     sendEmail(email , info).catch(console.error);
@@ -164,3 +165,23 @@ app.get('/descargar', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 })
+
+function infoServers(){
+  let stateServers = lastLine();
+  console.log("Ultima linea llamando a: STATESERVER " +  stateServers);
+  servers.forEach(function(elemento, indice, array) {
+    stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
+  });
+  console.log(stateServers);
+  document.getElementById("demo").innerHTML = stateServers;
+  return stateServers;
+}
+
+function lastLine(){
+  var array = fs.readFileSync(NOMBRE_ARCHIVO).toString().split("\n");
+  return array[array.length - 2];
+}
+
+function mostrar(){
+  console.log('Tu y yo');
+}
