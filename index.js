@@ -32,7 +32,7 @@ var bodyParser = require('body-parser');
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, '/views')));
 
 var imagenPrueba = 'imagenPrueba.png';
 const multer = require('multer');
