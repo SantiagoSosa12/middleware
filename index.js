@@ -1,10 +1,14 @@
 const nodemailer = require("nodemailer");
+const cors = require('cors');
 const express = require('express')
 const app = express()
 const port = 3001
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
+
+
+app.use(cors());
 
 const { request } = require('http');
 
