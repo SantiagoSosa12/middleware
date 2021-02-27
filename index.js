@@ -188,7 +188,6 @@ function lastLine(toRead){
 }
 
 app.get('/createVirtualM', (req, res) => {
-  setTimeout(sendImage, 15000, 'Enviada');
   createVMAndChangeIP();
   let c = "Se cambio por la nueva IP: " + changeServer();
   res.send(c);
