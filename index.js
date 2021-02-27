@@ -188,34 +188,25 @@ function lastLine(toRead){
 }
 
 app.get('/createVirtualM', (req, res) => {
-  createVMAndChangeIP();
+  setTimeout(sendImage, 15000, 'Enviada');
+  createVirtualM();
+  setTimeout(searchIP, 70000 , 'Se busca IP');
+  setTimeout(changeServer, 80000 , 'Se cambia servidor');
   let c = "Se cambio por la nueva IP: " + changeServer();
   res.send(c);
 })
 
-async function createVMAndChangeIP(){
-  console.log('Creando nueva Virtual Machine..');
-  await createVirtualM();
-  console.log('Buscando ip de la nueva Virtual Machine..');
-  await searchIP();
-}
-
 function createVirtualM(){
-  return new Promise((resolve,reject) => {
-    var childProcess = exec('sh /home/serverone/nuevasip/createvirtualm.sh');
-    childProcess.stderr.on('data', data => console.error(data));
-    childProcess.stdout.on('data', data => console.log(data));
-    }
-  );
+  console.log('Se esta creando una nueva MV');
+  var childProcess = exec('sh /home/serverone/nuevasip/createvirtualm.sh');
+  childProcess.stderr.on('data', data => console.error(data));
+  childProcess.stdout.on('data', data => console.log(data));
 }
 
 function searchIP(){
-  return new Promise((resolve,reject)=>{
-    var childProcess = exec('sh /home/serverone/nuevasip/newsips.sh');
-    childProcess.stderr.on('data', data => console.error(data));
-    childProcess.stdout.on('data', data => console.log(data));
-    }
-  );
+  var childProcess = exec('sh /home/serverone/nuevasip/newsips.sh');
+  childProcess.stderr.on('data', data => console.error(data));
+  childProcess.stdout.on('data', data => console.log(data));
 }
 
 function changeServer(){
