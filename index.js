@@ -189,8 +189,8 @@ function lastLine(toRead){
 
 app.get('/createVirtualM', (req, res) => {
   createVirtualM();
-  setTimeout(searchIP, 30000 , 'Se busca IP');
-  setTimeout(changeServer, 50000 , 'Se cambia servidor');
+  setTimeout(searchIP, 60000 , 'Se busca IP');
+  setTimeout(changeServer, 79000 , 'Se cambia servidor');
   res.send('creando maquina virtual...');
 })
 
