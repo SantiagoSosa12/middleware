@@ -12,8 +12,9 @@ app.use(cors());
 
 const { request } = require('http');
 
-const readLine = require("readline")
+const { exec } = require('child_process');
 
+const readLine = require("readline")
 
 var router = express.Router();
 
@@ -23,7 +24,7 @@ var ultimaLineaArchivo;
 
 
 
-let servers = ['192.168.0.18' , '192.168.0.15']
+let servers = ['192.168.0.18' , '192.168.0.12']
 let number = 0;
 
 var bodyParser = require('body-parser');
@@ -169,7 +170,7 @@ app.listen(port, () => {
 })
 
 function infoServers(){
-  let stateServers = lastLine();
+  let stateServers = lastLine("/home/serverone/serverStatus/logger.txt");
   console.log("Ultima linea llamando a: STATESERVER " +  stateServers);
   servers.forEach(function(elemento, indice, array) {
     stateServers += "Servidor numero: " + (indice + 1) + " IP " + servers[indice] + "\n";
@@ -179,7 +180,33 @@ function infoServers(){
   return stateServers;
 }
 
-function lastLine(){
-  var array = fs.readFileSync("/home/serverone/serverStatus/logger.txt").toString().split("\n");
+function lastLine(toRead){
+  var array = fs.readFileSync(toRead).toString().split("\n");
   return array[array.length - 2];
+}
+
+app.get('/createVirtualM', (req, res) => {
+  createVirtualM();
+  let c = "Se cambio por la nueva IP: " + changeServer();
+  res.send(c);
+})
+
+function createVirtualM(){
+  console.log('Creando nueva Virtual Machine..');
+  var childProcess = exec('sh /home/serverone/nuevasip/createvirtualm.sh');
+  childProcess.stderr.on('data', data => console.error(data));
+  childProcess.stdout.on('data', data => console.log(data));
+  console.log('Buscando ip de la nueva Virtual Machine..');
+  var childProcess = exec('sh /home/serverone/nuevasip/newsips.sh');
+  childProcess.stderr.on('data', data => console.error(data));
+  childProcess.stdout.on('data', data => console.log(data));
+}
+
+function changeServer(){
+  let lastIp = lastLine("/home/serverone/nuevasip/test.txt");
+  console.log("la nueva ip es: " + lastIp);
+  if(lastIp != "NO IP"){
+    servers[number] = lastIp;
+  }
+  return lastIp;
 }

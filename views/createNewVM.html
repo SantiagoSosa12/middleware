@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Estado de servidores</title>
+	<title>Crear una nueva VM</title>
     <meta charset="utf-8">
     <script>
         function myFunction() {
-            fetch('http://192.168.0.16:3001/stateServers')
+            fetch('http://192.168.0.16:3001/createVirtualM')
             .then(response => response.text())
             .then((response) => {
                 console.log(response)
@@ -21,11 +21,11 @@
         <ul>
             <li><a href="index.html">Inicio</a></li>
             <li><a href="index2.html">Reportar falla</a> </li>
-            <li><a href="createNewVM.html">Create VM</a></li>
+            <li><a href="state.html">Estado servidores</a> </li>
         </ul>
-        <h1>Estado servidores</h1>
-        <p>Si alguno de los dos servidores no funciona informe mediante correo electronico en /index2.html</p>
-        <p id="demo" for="boton">Click en el boton para actualizar el estado de los servidores</p>
-        <button id="boton"type="button" onclick="myFunction()">Actualizar Estado servidores</button>
+        <h1>Crear una nueva MV</h1>
+        <p>Este proceso puede tardar algun tiempo</p>
+        <p id="demo" for="boton">Click en el boton para ver la nueva ip</p>
+        <button id="boton"type="button" onclick="myFunction()">Crear maquina virtual</button>
     </body>
 </html>
