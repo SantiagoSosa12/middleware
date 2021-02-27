@@ -191,9 +191,7 @@ app.get('/createVirtualM', (req, res) => {
   setTimeout(sendImage, 15000, 'Enviada');
   createVirtualM();
   setTimeout(searchIP, 70000 , 'Se busca IP');
-  setTimeout(changeServer, 80000 , 'Se cambia servidor');
-  let c = "Se cambio por la nueva IP: " + changeServer();
-  res.send(c);
+  setTimeout(res.send( "Se cambio por la nueva IP: " + changeServer() ), 80000 , 'Se cambia servidor');
 })
 
 function createVirtualM(){
