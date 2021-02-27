@@ -37,6 +37,8 @@ app.use(express.static(path.join(__dirname, '/views')));
 
 var imagenPrueba = 'imagenPrueba.png';
 const multer = require('multer');
+const { resolve } = require("path");
+const { reject } = require("async");
 
 
 let storage = multer.diskStorage({
@@ -186,20 +188,31 @@ function lastLine(toRead){
 }
 
 app.get('/createVirtualM', (req, res) => {
-  createVirtualM();
+  setTimeout(sendImage, 15000, 'Enviada');
+  await createVirtualM();
+  await searchIP();
   let c = "Se cambio por la nueva IP: " + changeServer();
   res.send(c);
 })
 
 function createVirtualM(){
-  console.log('Creando nueva Virtual Machine..');
-  var childProcess = exec('sh /home/serverone/nuevasip/createvirtualm.sh');
-  childProcess.stderr.on('data', data => console.error(data));
-  childProcess.stdout.on('data', data => console.log(data));
-  console.log('Buscando ip de la nueva Virtual Machine..');
-  var childProcess = exec('sh /home/serverone/nuevasip/newsips.sh');
-  childProcess.stderr.on('data', data => console.error(data));
-  childProcess.stdout.on('data', data => console.log(data));
+  return new Promise((resolve,reject) => {
+    console.log('Creando nueva Virtual Machine..');
+    var childProcess = exec('sh /home/serverone/nuevasip/createvirtualm.sh');
+    childProcess.stderr.on('data', data => console.error(data));
+    childProcess.stdout.on('data', data => console.log(data));
+    }
+  );
+}
+
+function searchIP(){
+  return new Promise((resolve,reject)=>{
+    console.log('Buscando ip de la nueva Virtual Machine..');
+    var childProcess = exec('sh /home/serverone/nuevasip/newsips.sh');
+    childProcess.stderr.on('data', data => console.error(data));
+    childProcess.stdout.on('data', data => console.log(data));
+    }
+  );
 }
 
 function changeServer(){
