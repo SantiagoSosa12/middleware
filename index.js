@@ -188,10 +188,10 @@ function lastLine(toRead){
 }
 
 app.get('/createVirtualM', (req, res) => {
-  setTimeout(sendImage, 15000, 'Enviada');
   createVirtualM();
   setTimeout(searchIP, 70000 , 'Se busca IP');
-  setTimeout(res.send( "Se cambio por la nueva IP: " + changeServer() ), 80000 , 'Se cambia servidor');
+  setTimeout(changeServer, 80000 , 'Se cambia servidor');
+  res.send('creando maquina virtual...');
 })
 
 function createVirtualM(){
