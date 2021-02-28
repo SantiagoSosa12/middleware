@@ -156,7 +156,9 @@ app.get('/', (req, res) => {
 })
  
 app.get('/stateServers', (req, res) => {
-  res.send(lastLine());
+  stateS = "Server 1 " + servers[0] + " Server 2 "+ servers[1] 
+  + " Estado: "+lastLine("/home/serverone/serverStatus/logger.txt");
+  res.send(stateS);
 })
 
 app.get('/descargar', (req, res) => {
