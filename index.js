@@ -63,8 +63,8 @@ app.post('/subir' , upload.single('file'), (req, res) => {
   console.log(`Subiendo imagen..${req.hostname}/${req.file.path}`);
   if(allServerON){
     res.send('Intentado enviar imagen y pedir de vuelta...');
-    setTimeout(sendImage, 15000, 'Enviada');
-    setTimeout(sum ,30000 , 'Cambio Servidor');
+    setTimeout(sendImage, 2000, 'Enviada');
+    setTimeout(sum ,7000 , 'Cambio Servidor');
   }else {
     res.send('Al menos un servidor esta fallando!! ');
   }
